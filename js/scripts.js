@@ -16,7 +16,7 @@ let pokemonList = [
     types: 'Water'
   },
   {
-    names: 'Pikachu',
+    name: 'Pikachu',
     height: 0.4,
     types: 'Electric'
   },
