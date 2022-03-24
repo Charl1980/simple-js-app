@@ -1,4 +1,64 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: 'Montserrat', sans-serif;
   font-family: 'Poppins', sans-serif;
+}
+
+a {
+  color: #425970;
+  transition: 0.5s opacity;
+}
+
+a:visited {
+  color: #1a232c;
+}
+
+a:hover,
+a:focus {
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+a:active {
+  color: #7e99b4;
+}
+
+/* Header Section */
+.pokedex-header {
+  display: flex;
+  width: 100%;
+  padding: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.pokedex-header__logo {
+  max-width: 100%;
+  height: auto;
+}
+
+.pokedex-header__item {
+  flex: 0 1 200px;
+}
+
+.pokedex-header .pokedex-header__item:last-child {
+  flex-grow: 1;
+  text-align: right;
+}
+
+/* Navigation Section */
+.navigation-list {
+  list-style-type: none;
+}
+
+.navigation-list li {
+  display: inline-block;
+  margin-left: 15px;
+}
+
+.navigation-list__item--active {
+  text-decoration: none;
 }
