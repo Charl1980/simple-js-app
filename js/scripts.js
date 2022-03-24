@@ -22,11 +22,20 @@ let pokemonList = [
   },
 ];
 
-//for Loop executing the Name and Height of each Pokemon.
-for (let i=0; i < pokemonList.length; i++){
-  if (pokemonList[i].height < 0.7 ) {
-    document.write('<p>' + pokemonList[i].name + ' (' + pokemonList[i].height + ')</p>');
-  } else if (pokemonList[i].height >= 0.7 ) {
-    document.write('<p>' + pokemonList[i].name + ' (' + pokemonList[i].height + ')' + ' - Wow, that\'s big!</p>');
+// forEach() Loop code refactoring
+pokemonList.forEach(function(pokemon) {
+  if (pokemon.height < 0.7) {
+  document.write('<p>' + pokemon.name + ' ' + '(' + pokemon.height + ')</p>');
+  } else if (pokemon.height >= 0.7) {
+    document.write('<p>' + pokemon.name + ' ' + '(' + pokemon.height + ')' + ' - Wow, that\'s big!</p>');
   }
-}
+});
+
+//for Loop executing the Name and Height of each Pokemon.
+//for (let i=0; i < pokemonList.length; i++){
+//  if (pokemonList[i].height < 0.7 ) {
+//    document.write('<p>' + pokemonList[i].name + ' (' + pokemonList[i].height + ')</p>');
+//  } else if (pokemonList[i].height >= 0.7 ) {
+//    document.write('<p>' + pokemonList[i].name + ' (' + pokemonList[i].height + ')' + ' - Wow, that\'s big!</p>');
+//  }
+//}
