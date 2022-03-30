@@ -62,3 +62,27 @@ a:active {
 .navigation-list__item--active {
   text-decoration: none;
 }
+
+/* Pokémon List */
+.pokemon-list {
+  list-style-type: none;
+}
+
+.pokemon-button {
+  background-color: #e7e7e7;
+  border: 2px solid #e7e7e7;
+  color: black;
+  padding: 16px 32px;
+  text-align: left;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  width: 250px;
+}
+
+.pokemon-button:hover {
+  background-color: white;
+}
