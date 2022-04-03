@@ -2,41 +2,23 @@
 let pokemonRepository = (function() {
 
   //Pokemon List Array with nested Objects
-  let pokemonList = [{
-      name: 'Bulbasaur',
-      height: 0.7,
-      types: ['Grass', 'Poison']
-    },
-    {
-      name: 'Charmander',
-      height: 0.6,
-      types: 'Fire'
-    },
-    {
-      name: 'Squirtle',
-      height: 0.5,
-      types: 'Water'
-    },
-    {
-      name: 'Pikachu',
-      height: 0.4,
-      types: 'Electric'
-    },
-  ];
+  let pokemonList = [];
+  // API link for the Pokemon repository
+  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=50';
 
   // Public functions
   function add(pokemon) {
     if (
       typeof pokemon === 'object' &&
-      'name' in pokemon &&
-      'height' in pokemon &&
-      'types' in pokemon
+      'name' in pokemon //&&
+      //'height' in pokemon &&
+      //'types' in pokemon
     ) {
-    pokemonList.push(pokemon);
-  } else {
-    console.log('Pokémon is not correct');
+      pokemonList.push(pokemon);
+    } else {
+      console.log('Pokémon is not correct');
+    }
   }
-}
 
   function getAll() {
     return pokemonList;
@@ -56,30 +38,62 @@ let pokemonRepository = (function() {
     })
   }
 
-  function showDetails(pokemon) {
-    console.log(pokemon);
+  function loadList() {
+    return fetch(apiUrl).then(function(response) {
+      return response.json();
+    }).then(function(json) {
+      json.results.forEach(function(item) {
+        let pokemon = {
+          name: item.name,
+          detailsUrl: item.url
+        };
+        add(pokemon);
+        console.log(pokemon);
+      });
+    }).catch(function(e) {
+      console.error(e);
+    });
+  }
+
+  function loadDetails(item) {
+    let url = item.detailsUrl;
+    return fetch(url).then(function(response) {
+      return response.json();
+    }).then(function(details) {
+      item.imageUrl = details.sprites.front_default;
+      item.height = details.height;
+      item.types = details.types;
+    }).catch(function(e) {
+      console.error(e);
+    });
+  }
+
+  function showDetails(item) {
+    pokemonRepository.loadDetails(item).then(function() {
+      console.log(item);
+    })
   }
 
   return {
     add: add,
     getAll: getAll,
-    addListItem: addListItem
+    addListItem: addListItem,
+    loadList: loadList,
+    loadDetails: loadDetails,
+    showDetails: showDetails
   };
 })();
 
 // Add Pokemon function
-pokemonRepository.add({
-  name: 'Zubat',
-  height: 0.8,
-  types: ['Poison', 'Flying']
+pokemonRepository.loadList().then(function() {
+  // forEach() Loop with DOM manipulation
+  pokemonRepository.getAll().forEach(function(pokemon) {
+    pokemonRepository.addListItem(pokemon);
+  });
 });
 
-console.log(pokemonRepository.getAll());
 
-// forEach() Loop with DOM manipulation
-pokemonRepository.getAll().forEach(function(pokemon) {
-  pokemonRepository.addListItem(pokemon);
-});
+
 
 // forEach() Loop code refactoring with .getAll & .add key/values
 
